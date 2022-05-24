@@ -14,12 +14,16 @@ class TeacherResource extends JsonResource
      */
     public function toArray($request)
     {
+        $user = $this->user;
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            'middle_name' => $this->middle_name,
-            'last_name' => $this->last_name,
-            'user_data' => $this->user
+            'name' => $user->name,
+            'middle_name' => $user->middle_name,
+            'last_name' => $user->last_name,
+            'phone' => $user->phone,
+            'email' => $user->email,
+            'created' => $user->created_at,
+            'update' => $user->updated_at,
         ];
     }
 }

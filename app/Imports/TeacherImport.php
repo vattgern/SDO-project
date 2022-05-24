@@ -19,18 +19,19 @@ class TeacherImport implements ToCollection
         foreach ($collection as $teacher) {
 
             $user = User::create([
-                'phone' => $teacher[4],
-                'password' => Hash::make($teacher[5])
+                'name' => $teacher[0],
+                'middle_name' => $teacher[1],
+                'last_name' => $teacher[2],
+                'login' => $teacher[3],
+                'phone' => $teacher[5],
+                'password' => Hash::make($teacher[4])
             ]);
 
             $user->roles()->attach(Role::where('slug', 'teacher')->first());
             $user->save();
 
             Teacher::create([
-                'user_id' => $user['id'],
-                'name' => $teacher[0],
-                'middle_name' => $teacher[1],
-                'last_name' => $teacher[2],
+                'user_id' => $user['id']
             ]);
         }
     }

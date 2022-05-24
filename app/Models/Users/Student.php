@@ -12,7 +12,7 @@ class Student extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'name', 'middle_name', 'last_name', 'user_id', 'student_cart'
+        'user_id', 'student_cart'
     ];
 
     public function user()

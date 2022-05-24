@@ -20,7 +20,11 @@ class ParentImport implements ToCollection
         foreach ($collection as $parent){
 
             $user = User::create([
-                'phone' => $parent[3],
+                'name' => $parent[0],
+                'middle_name' => $parent[1],
+                'last_name' => $parent[2],
+                'login' => $parent[3],
+                'phone' => $parent[5],
                 'password' => Hash::make($parent[4])
             ]);
 
@@ -29,12 +33,9 @@ class ParentImport implements ToCollection
 
             $new_parent = Parents::create([
                 'user_id' => $user['id'],
-                'name' => $parent[0],
-                'middle_name' => $parent[1],
-                'last_name' => $parent[2],
             ]);
 
-            for($i = 5; $i < count($parent); $i++){
+            for($i = 6; $i < count($parent); $i++){
                 $new_parent->students()->attach(Student::where('student_cart', $parent[$i])->first());
                 $new_parent->save();
             }

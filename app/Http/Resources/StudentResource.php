@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Users\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class StudentResource extends JsonResource
@@ -15,15 +14,17 @@ class StudentResource extends JsonResource
      */
     public function toArray($request)
     {
+        $user = $this->user;
         return [
-          'id' => $this->id,
-          'name' => $this->name,
-          'student_cart' => $this->student_cart,
-          'middle_name' => $this->middle_name,
-          'last_name' => $this->last_name,
-          'user_data' => $this->user,
-          'parents' => $this->parents
+            'id' => $this->id,
+            'name' => $user->name,
+            'middle_name' => $user->middle_name,
+            'last_name' => $user->last_name,
+            'phone' => $user->phone,
+            'email' => $user->email,
+            'created' => $user->created_at,
+            'update' => $user->updated_at,
+            'student_cart' => $this->student_cart
         ];
     }
-
 }

@@ -15,7 +15,11 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('middle_name');
+            $table->string('last_name');
             $table->string('phone', 11);
+            $table->string('login');
             $table->string('email')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
@@ -26,9 +30,6 @@ return new class extends Migration
         Schema::create('students', function (Blueprint $table){
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('name');
-            $table->string('middle_name');
-            $table->string('last_name');
             $table->string('student_cart');
             $table->foreign('id')->on('users')->references('id')->onDelete('CASCADE')->onUpdate('CASCADE');
             $table->index('student_cart');
@@ -37,27 +38,18 @@ return new class extends Migration
         Schema::create('parents', function (Blueprint $table){
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('name');
-            $table->string('middle_name');
-            $table->string('last_name');
             $table->foreign('id')->on('users')->references('id')->onDelete('CASCADE')->onUpdate('CASCADE');
         });
 
         Schema::create('teachers', function (Blueprint $table){
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('name');
-            $table->string('middle_name');
-            $table->string('last_name');
             $table->foreign('id')->on('users')->references('id')->onDelete('CASCADE')->onUpdate('CASCADE');
         });
 
         Schema::create('admin', function (Blueprint $table){
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('name');
-            $table->string('middle_name');
-            $table->string('last_name');
             $table->foreign('id')->on('users')->references('id')->onDelete('CASCADE')->onUpdate('CASCADE');
         });
     }

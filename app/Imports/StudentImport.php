@@ -19,6 +19,10 @@ class StudentImport implements ToCollection
         foreach ($collection as $student){
 
             $user = User::create([
+                'name' => $student[0],
+                'middle_name' => $student[1],
+                'last_name' => $student[2],
+                'login' => $student[3],
                 'phone' => $student[4],
                 'password' => Hash::make($student[5])
             ]);
@@ -28,10 +32,7 @@ class StudentImport implements ToCollection
 
             Student::create([
                 'user_id' => $user['id'],
-                'name' => $student[0],
-                'middle_name' => $student[1],
-                'last_name' => $student[2],
-                'student_cart' => $student[3],
+                'student_cart' => $student[6],
             ]);
         }
     }

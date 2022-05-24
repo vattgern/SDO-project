@@ -13,7 +13,7 @@ class Admin extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'name', 'middle_name', 'last_name', 'user_id'
+        'user_id'
     ];
 
     public function user():BelongsTo

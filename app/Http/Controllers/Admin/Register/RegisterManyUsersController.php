@@ -24,9 +24,6 @@ class RegisterManyUsersController extends UserService
 
             Student::create([
                 'user_id' => $user['id'],
-                'name' => $student['name'],
-                'middle_name' => $student['middle_name'],
-                'last_name' => $student['last_name'],
                 'student_cart' => $student['student_cart'],
             ]);
         }
@@ -42,9 +39,6 @@ class RegisterManyUsersController extends UserService
 
             $new_parent = Parents::create([
                 'user_id' => $user['id'],
-                'name' => $parent['name'],
-                'middle_name' => $parent['middle_name'],
-                'last_name' => $parent['last_name'],
             ]);
 
             foreach ($parent['students'] as $student){
@@ -66,9 +60,6 @@ class RegisterManyUsersController extends UserService
 
             Parents::create([
                 'user_id' => $user['id'],
-                'name' => $teacher['name'],
-                'middle_name' => $teacher['middle_name'],
-                'last_name' => $teacher['last_name']
             ]);
         }
         return response()->json([

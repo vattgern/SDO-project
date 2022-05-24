@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\Register\RegisterOneUserController;
 use App\Http\Controllers\Admin\Register\RegisterManyUsersController;
 use App\Http\Controllers\Admin\Register\RegisterExcelUsersController;
 use App\Http\Controllers\Admin\Data\GetDataUserController;
+use App\Http\Controllers\AuthController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,9 +17,11 @@ use App\Http\Controllers\Admin\Data\GetDataUserController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout']);
 
-
-Route::group([], function (){
+Route::group(['middleware' => 'auth:sanctum'], function (){
+    Route::get('/me', [AuthController::class, 'user']);
     //Регистрация групп пользователей: по одному, списком и через импорт excel таблицы
     Route::post('/one/student', [RegisterOneUserController::class, 'oneStudentRegister']);
     Route::post('/one/parent', [RegisterOneUserController::class, 'oneParentRegister']);
