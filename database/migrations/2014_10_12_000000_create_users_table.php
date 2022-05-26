@@ -31,8 +31,11 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('student_cart');
-            $table->foreign('id')->on('users')->references('id')->onDelete('CASCADE')->onUpdate('CASCADE');
+            $table->foreign('user_id')->on('users')->references('id')->onDelete('CASCADE')->onUpdate('CASCADE');
             $table->index('student_cart');
+            $table->unsignedBigInteger('group_id');
+            $table->foreign('group_id')->references('id')
+                ->on('groups')->onUpdate('CASCADE')->onDelete('CASCADE');
         });
 
         Schema::create('parents', function (Blueprint $table){

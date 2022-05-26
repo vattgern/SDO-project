@@ -2,6 +2,7 @@
 
 namespace App\Models\Users;
 
+use App\Models\Group;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,7 +13,7 @@ class Student extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'user_id', 'student_cart'
+        'user_id', 'student_cart' , 'group_id'
     ];
 
     public function user()
@@ -22,5 +23,9 @@ class Student extends Model
 
     public function parents(){
         return $this->belongsToMany(Parents::class, 'student_parent', 'student_id', 'parent_id');
+    }
+
+    public function group(){
+        return $this->belongsTo(Group::class, 'id_group', 'id');
     }
 }

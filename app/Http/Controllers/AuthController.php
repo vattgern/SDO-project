@@ -18,9 +18,10 @@ class AuthController extends Controller
             $role = $user->roles[0]->slug;
             $token = $user->createToken('token')->plainTextToken;
             return response()->json([
-                'message' => 'Authorize',
-                'role' => $role
-            ])->withHeaders(['token' => 'Bearer '.$token]);
+                'message' => 'Авторизован',
+                'role' => $role,
+                'token' => $token
+            ]);
         }
         return response()->json([
             'message' => 'User not found'
@@ -49,7 +50,7 @@ class AuthController extends Controller
     public function logout(){
         \auth('sanctum')->user()->currentAccessToken()->delete();
         return response()->json([
-            'message' => 'You have successfully logged out'
+            'message' => 'Вы успешно вышли'
         ], 200);
     }
 }

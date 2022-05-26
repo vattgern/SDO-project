@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Registration\ManyParentsRegistration;
 use App\Http\Requests\Registration\ManyStudentsRegistration;
 use App\Http\Requests\Registration\ManyTeachersRegistration;
+use App\Models\Group;
+use App\Models\Lesson;
 use App\Models\Users\Parents;
 use App\Models\Users\Role;
 use App\Models\Users\Student;
@@ -22,9 +24,12 @@ class RegisterManyUsersController extends UserService
 
             $user = $this->userRegister($student, 'student');
 
+            $group_id = Group::where('name',$student['group_name'])->first()->id;
+
             Student::create([
                 'user_id' => $user['id'],
                 'student_cart' => $student['student_cart'],
+                'group_id' => $group_id
             ]);
         }
 
@@ -62,8 +67,14 @@ class RegisterManyUsersController extends UserService
                 'user_id' => $user['id'],
             ]);
         }
+
+        foreach ($teacher['lessons'] as $lesson){
+            $teacher->lessons()->attach(Lesson::where('code', $lesson)->first());
+            $teacher->save();
+        }
+
         return response()->json([
-            'message' => 'New parent create'
+            'message' => 'New teacher create'
         ],200);
     }
 }

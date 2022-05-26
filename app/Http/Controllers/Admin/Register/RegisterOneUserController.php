@@ -6,9 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Registration\OneParentRegistration;
 use App\Http\Requests\Registration\OneStudentRegistration;
 use App\Http\Requests\Registration\OneTeacherRegistration;
+use App\Models\Group;
+use App\Models\Lesson;
 use App\Models\Users\Parents;
 use App\Models\Users\Role;
 use App\Models\Users\Student;
+use App\Models\Users\Teacher;
 use App\Models\Users\User;
 use App\Services\UserService;
 use http\Env\Response;
@@ -23,9 +26,12 @@ class RegisterOneUserController extends UserService
 
         $user = $this->userRegister($student, 'student');
 
+        $group_id = Group::where('name',$student['group_name'])->first()->id;
+
         Student::create([
             'user_id' => $user['id'],
             'student_cart' => $student['student_cart'],
+            'group_id' => $group_id
         ]);
 
         return response()->json([
@@ -58,9 +64,14 @@ class RegisterOneUserController extends UserService
         //Регистрация пользователя
         $user = $this->userRegister($teacher, 'teacher');
 
-        Parents::create([
+        Teacher::create([
             'user_id' => $user['id'],
         ]);
+
+        foreach ($teacher['lessons'] as $lesson){
+            $teacher->lessons()->attach(Lesson::where('code', $lesson)->first());
+            $teacher->save();
+        }
 
         return response()->json([
             'message' => 'New teacher create'

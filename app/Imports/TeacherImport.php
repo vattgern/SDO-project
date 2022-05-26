@@ -2,7 +2,9 @@
 
 namespace App\Imports;
 
+use App\Models\Lesson;
 use App\Models\Users\Role;
+use App\Models\Users\Student;
 use App\Models\Users\Teacher;
 use App\Models\Users\User;
 use Illuminate\Support\Collection;
@@ -30,9 +32,14 @@ class TeacherImport implements ToCollection
             $user->roles()->attach(Role::where('slug', 'teacher')->first());
             $user->save();
 
-            Teacher::create([
+            $new_teacher = Teacher::create([
                 'user_id' => $user['id']
             ]);
+
+            for($i = 6; $i < count($teacher); $i++){
+                $new_teacher->lessons()->attach(Lesson::where('code', $teacher[$i])->first());
+                $new_teacher->save();
+            }
         }
     }
 }

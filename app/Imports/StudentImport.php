@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use App\Models\Group;
 use App\Models\Users\Role;
 use App\Models\Users\Student;
 use App\Models\Users\User;
@@ -18,13 +19,16 @@ class StudentImport implements ToCollection
     {
         foreach ($collection as $student){
 
+            $group_id = Group::where('name',$student[6])->first()->id;
+
             $user = User::create([
                 'name' => $student[0],
                 'middle_name' => $student[1],
                 'last_name' => $student[2],
                 'login' => $student[3],
                 'phone' => $student[4],
-                'password' => Hash::make($student[5])
+                'password' => Hash::make($student[5]),
+                'group_id' => $group_id
             ]);
 
             $user->roles()->attach(Role::where('slug', 'student')->first());
