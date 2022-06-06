@@ -8,6 +8,8 @@ use App\Http\Controllers\Admin\Register\RegisterExcelUsersController;
 use App\Http\Controllers\Admin\Data\GetDataUserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\GroupController;
+use App\Http\Controllers\Admin\LessonController;
+use App\Http\Controllers\User\EmailAndPasswordResetController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -20,19 +22,33 @@ use App\Http\Controllers\Admin\GroupController;
 */
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout']);
+Route::put('/email/reset', [EmailAndPasswordResetController::class, 'emailReset']);
+Route::put('/password/reset', [EmailAndPasswordResetController::class, 'passReset']);
 
-Route::get('/groups', [GroupController::class , 'getGroups']);
-Route::get('/group/{name}',[GroupController::class, 'getGroupByName']);
-Route::get('/group/{id}', [GroupController::class, 'getGroup']);
-Route::post('/new/group', [GroupController::class, 'newGroup']);
-Route::put('/group/{id}', [GroupController::class, 'putGroup']);
-Route::post('/excel/groups', [GroupController::class, 'excelImportGroups']);
-Route::get('/students/group/{id}', [GroupController::class, 'getStudentsByGroup']);
+Route::group([], function (){
+    Route::get('/groups', [GroupController::class , 'getGroups']);
+    Route::get('/group/{name}',[GroupController::class, 'getGroupByName']);
+    Route::get('/group/{id}', [GroupController::class, 'getGroup']);
+    Route::post('/new/group', [GroupController::class, 'newGroup']);
+    Route::put('/group/{id}', [GroupController::class, 'putGroup']);
+    Route::post('/excel/groups', [GroupController::class, 'excelImportGroups']);
+    Route::get('/students/group/{id}', [GroupController::class, 'getStudentsByGroup']);
+    Route::delete('/group/{id}' , [GroupController::class, 'deleteGroup']);
 
+    Route::get('/lessons', [LessonController::class, 'getLesons']);
+    Route::get('/lesson/{id}', [LessonController::class, 'getLesson']);
+    Route::get('/lesson/{name}', [LessonController::class, 'getLessonByName']);
+    Route::put('/lesson/{id}', [LessonController::class, 'putLesson']);
+    Route::post('/new/lesson', [LessonController::class, 'newLesson']);
+    Route::post('/excel/lesson', [LessonController::class, 'importExcelLessons']);
+    Route::get('/teacher/lesson/{id}' , [LessonController::class, 'getTeachersByLessons']);
+});
 
-Route::group(['middleware' => 'auth:sanctum'], function (){
+//'middleware' => 'role:admin'
+//'middleware' => 'auth:sanctum'
+Route::group([], function (){
     Route::get('/me', [AuthController::class, 'user']);
-    Route::group(['middleware' => 'role:admin'], function (){
+    Route::group([], function (){
         //Регистрация групп пользователей: по одному, списком и через импорт excel таблицы
         Route::post('/one/student', [RegisterOneUserController::class, 'oneStudentRegister']);
         Route::post('/one/parent', [RegisterOneUserController::class, 'oneParentRegister']);

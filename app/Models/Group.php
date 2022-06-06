@@ -15,10 +15,10 @@ class Group extends Model
     protected $table = 'groups';
 
     protected $fillable = [
-      'name'
+      'name', 'code'
     ];
 
     public function students(){
-        return $this->hasMany(Student::class, 'id_group' , 'id');
+        return $this->hasMany(Student::class, 'group_id' , 'id');
     }
 }

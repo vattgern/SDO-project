@@ -2,21 +2,20 @@
 
 namespace App\Imports;
 
-use App\Models\Group;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 
-class GroupsImport implements ToCollection
+class LessonImport implements ToCollection
 {
     /**
     * @param Collection $collection
     */
     public function collection(Collection $collection)
     {
-        foreach ($collection as $group){
-            Group::create([
-                'code' => $group[0],
-                'name' => $group[1]
+        foreach ($collection as $lesson){
+            Lesson::create([
+                'code' => $lesson[0],
+                'name' => $lesson[1]
             ]);
         }
     }

@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ExcelRequest;
+use App\Http\Resources\TeacherResource;
+use App\Imports\LessonImport;
 use App\Models\Lesson;
-use Illuminate\Http\Request;
+use App\Http\Requests\GroupsAndLessonsRequest;
+use Maatwebsite\Excel\Facades\Excel;
 
 class LessonController extends Controller
 {
@@ -22,7 +26,7 @@ class LessonController extends Controller
         ]);
     }
 
-    public function newLesson(Request $request){
+    public function newLesson(GroupsAndLessonsRequest $request){
         Lesson::create([
             'code' => $request->code,
             'name' => $request->name
@@ -32,7 +36,13 @@ class LessonController extends Controller
         ]);
     }
 
-    public function putLesson($id, Request $request){
+    public function importExcelLessons(ExcelRequest $request){
+        Excel::import(new LessonImport(), $request->file('file'));
+        return response()->json(['message' => 'New groups created'], 200);
+
+    }
+
+    public function putLesson($id, GroupsAndLessonsRequest $request){
         $lesson = Lesson::find($id);
         $lesson->name = $request->name;
         $lesson->code = $request->code;
@@ -55,5 +65,10 @@ class LessonController extends Controller
         return response()->json([
             'Lesson deleted'
         ], 200);
+    }
+
+    public function getTeachersByLessons($id){
+        $lesson = Lesson::find($id);
+        return TeacherResource::collection($lesson->teachers);
     }
 }

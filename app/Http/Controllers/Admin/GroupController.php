@@ -7,13 +7,14 @@ use App\Http\Requests\ExcelRequest;
 use App\Http\Resources\StudentResource;
 use App\Imports\GroupsImport;
 use App\Models\Group;
-use Illuminate\Http\Request;
+use App\Http\Requests\GroupsAndLessonsRequest;
 use Maatwebsite\Excel\Facades\Excel;
 
 class GroupController extends Controller
 {
-    public function newGroup(Request $request){
+    public function newGroup(GroupsAndLessonsRequest $request){
         Group::create([
+            'code' => $request->code,
             'name' => $request->name
         ]);
         return response()->json([
@@ -21,9 +22,10 @@ class GroupController extends Controller
         ]);
     }
 
-    public function putGroup($id, Request $request){
+    public function putGroup($id, GroupsAndLessonsRequest $request){
         $group = Group::find($id);
         $group->name = $request->name;
+        $group->code = $request->code;
         $group->save();
 
         return response()->json([
