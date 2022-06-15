@@ -14,22 +14,21 @@
         <!--    Список преподавателей    -->
         <div class="w-100 container mt-4">
             <ul class="list-group">
-                <li class="list-group-item d-flex justify-content-between" value="1">
-                    <div class="d-flex flex-row w-25 h-100 align-items-center justify-content-evenly">
-                        <img src="" alt="Фото" class="border p-5">
-                        <p>ФИО преподавателя</p>
-                    </div>
-                    <div class="d-flex flex-column">
-                        <p>Предмет: xx-xx</p>
-                        <form>
-                            <button type="submit" class="btn btn-outline-danger mb-3 w-100">Удалить</button>
-                        </form>
-                        <!-- @submit.prevent прописать -->
-                        <form @submit.prevent = "">
-                            <button type="submit" class="btn btn-outline-warning w-100">Редактировать</button>
-                        </form>
-                    </div>
-                </li>
+              <li class="list-group-item d-flex flex-row align-items-center justify-content-between"
+                  v-for="(teacher, id) in teachers" >
+                <div>
+                  <h5>{{ teacher.middle_name }} {{ teacher.name }} {{ teacher.last_name }}</h5>
+                </div>
+                <div>
+                  <p>Почта: {{ teacher.email }}</p>
+                  <p>Телефон: {{ teacher.phone }}</p>
+                </div>
+                <div class="d-flex flex-column gap-4">
+                  <button type="button" class="btn btn-secondary">Изменить пароль</button>
+                  <button type="button" class="btn btn-warning">Редактировать</button>
+                  <button type="button" class="btn btn-danger">Удалить</button>
+                </div>
+              </li>
             </ul>
         </div>
         <!--    Модальное окно    -->
@@ -115,7 +114,7 @@ export default {
         }
     },
   mounted() {
-      axios.get('/api//teachers/{offset}').then(teachers => {
+      axios.get('/api/teachers/0').then(teachers => {
         if(teachers.data.length > 0){
           this.teachers = teachers.data;
           console.log(this.teachers);

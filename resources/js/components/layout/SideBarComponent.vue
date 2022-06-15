@@ -4,8 +4,10 @@
       <i class='bx bx-menu' id="header-toggle"></i>
     </div>
 
-    <div class="header__img">
-      <img src="" alt="">
+    <div>
+      <p>
+        {{ user.key }} {{ user.name }}
+      </p>
     </div>
   </header>
   <div v-if="role" class="l-navbar" id="nav-bar">
@@ -110,7 +112,11 @@ export default {
   name: "SideBarComponent",
   data(){
     return{
-      role: window.localStorage.getItem('role')
+      role: window.localStorage.getItem('role'),
+      user: {
+        name: '',
+        key: ''
+      }
     }
   },
   methods: {
@@ -120,6 +126,15 @@ export default {
         sessionStorage.clear();
         this.$router.push({name: 'login'});
       });
+    }
+  },
+  mounted() {
+    if(localStorage.getItem('token')){
+      axios.get('/api/me').then(response => {
+        console.log(response);
+        this.user.key = response.data.key;
+        this.user.name = response.data.middle_name + ' ' + response.data.name + ' '+ response.data.last_name;
+      })
     }
   }
 }

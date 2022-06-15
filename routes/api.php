@@ -64,6 +64,7 @@ Route::group(['middleware' => 'auth:sanctum'], function (){
         Route::delete('/lesson/{id}', [LessonController::class, 'deleteLesson']);
 
         Route::post('/timetable', [TimeTableController::class, 'timeTable']);
+        Route::get('/timetable/get',[TimeTableController::class,'getTimeTable']);
         Route::post('/excel/timetable', [TimeTableController::class, 'timeTableExcel']);
         Route::post('/group/timetable', [TimeTableController::class, 'timeTableInGroup']);
         Route::post('/new/class', [TimeTableController::class, 'newCalsses']);

@@ -275,6 +275,11 @@ export default {
       }
     }
   },
+  mounted() {
+    axios.get('/api/timetable/student').then(response => {
+      console.log(response);
+    })
+  },
   methods:{
     getSchedule(){
 
