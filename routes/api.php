@@ -20,8 +20,11 @@ use App\Http\Controllers\User\EmailAndPasswordResetController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+// -----------------------------------------------------
+// СДЕЛАНО
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout']);
+// -----------------------------------------------------
 Route::put('/email/reset', [EmailAndPasswordResetController::class, 'emailReset']);
 Route::put('/password/reset', [EmailAndPasswordResetController::class, 'passReset']);
 
@@ -50,15 +53,21 @@ Route::group([], function (){
     Route::get('/me', [AuthController::class, 'user']);
     Route::group([], function (){
         //Регистрация групп пользователей: по одному, списком и через импорт excel таблицы
+        // -----------------------------------------------------
+        // СДЕЛАНО
         Route::post('/one/student', [RegisterOneUserController::class, 'oneStudentRegister']);
         Route::post('/one/parent', [RegisterOneUserController::class, 'oneParentRegister']);
         Route::post('/one/teacher',[RegisterOneUserController::class, 'oneTeacherRegister']);
+        // -----------------------------------------------------
         Route::post('/many/students', [RegisterManyUsersController::class, 'manyStudentsRegister']);
         Route::post('/many/parents', [RegisterManyUsersController::class, 'manyParentsRegister']);
         Route::post('/many/teachers', [RegisterManyUsersController::class, 'manyTeachersRegister']);
+        // -----------------------------------------------------
+        // СДЕЛАНО
         Route::post('/excel/students', [RegisterExcelUsersController::class, 'excelRegisterStudents']);
         Route::post('/excel/parents', [RegisterExcelUsersController::class, 'excelRegisterParents']);
         Route::post('/excel/teachers', [RegisterExcelUsersController::class, 'excelRegisterTeachers']);
+        // -----------------------------------------------------
     });
     //Вывод всех пользователей
     Route::get('/student/{id}', [GetDataUserController::class, 'getStudentById']);

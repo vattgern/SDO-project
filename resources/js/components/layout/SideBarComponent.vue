@@ -1,0 +1,126 @@
+<template>
+  <header class="header" id="header">
+    <div class="header__toggle">
+      <i class='bx bx-menu' id="header-toggle"></i>
+    </div>
+
+    <div class="header__img">
+      <img src="" alt="">
+    </div>
+  </header>
+  <div class="l-navbar" id="nav-bar">
+    <nav class="nav">
+      <div>
+        <router-link v-if="role==='student'" class="nav__logo" :to="{name: 'student'}">
+          <i class='bx bx-layer nav__logo-icon'></i>
+          <span class="nav__logo-name">АКВТ</span>
+        </router-link>
+        <router-link v-if="role==='parent'" class="nav__logo" :to="{name: 'parent'}">
+          <i class='bx bx-layer nav__logo-icon'></i>
+          <span class="nav__logo-name">АКВТ</span>
+        </router-link>
+        <div class="nav__list">
+          <router-link v-if="role==='student'" class="nav__link active" id="news" :to="{name: 'student'}">
+            <i class='bx bx-news'></i>
+            <span class="nav__name">Главная</span>
+          </router-link>
+
+          <router-link v-if="role==='parent'" class="nav__link active" id="news-parent" :to="{name: 'parent'}">
+            <i class='bx bx-news'></i>
+            <span class="nav__name">Главная</span>
+          </router-link>
+
+          <router-link v-if="role==='parent'" class="nav__link active" id="news-teacher" :to="{name: 'teacher'}">
+            <i class='bx bx-news'></i>
+            <span class="nav__name">Главная</span>
+          </router-link>
+
+          <router-link class="nav__link " id="attestation" :to="{name: 'attestation'}">
+            <i class='bx bx-book-content'></i>
+            <span class="nav__name">Аттестация</span>
+          </router-link>
+          <router-link class="nav__link" id="schedule" :to="{name: 'schedule'}">
+            <i class='bx bxs-calendar'></i>
+            <span class="nav__name">Расписание</span>
+          </router-link>
+          <router-link class="nav__link " id="debt" :to="{name: 'debt'}">
+            <i class='bx bx-bookmark nav__icon' ></i>
+            <span class="nav__name">Задолжности</span>
+          </router-link>
+<!--          <router-link class="nav__link " id="chat" :to="{name: 'chat'}">-->
+<!--            <i class='bx bx-message-square-dots'></i>-->
+<!--            <span class="nav__name">Месенджер</span>-->
+<!--          </router-link>-->
+
+          <router-link v-if=" role==='admin' " class="nav__link " id="makeAdmin" :to="{name: 'adminMake'}">
+            <i class='bx bx-user nav__icon'></i>
+            <span class="nav__name">Создать по одному</span>
+          </router-link>
+          <div class="nav__link" v-if="role === 'admin'">
+            <button id="btn-drop" type="button" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class='bx bx-group' style="margin-right: 30px;"></i>
+              <span class="nav__name">Пользователи</span>
+            </button>
+            <ul class="dropdown-menu" id="dropdown-list">
+              <li>
+                <router-link class="nav__link " id="makeManyStudent" :to="{name: 'all-students'}">
+                  <i class='bx bx-group'></i>
+                  <span class="nav__name">Cтуденты</span>
+                </router-link>
+              </li>
+              <li>
+                <router-link class="nav__link " id="makeManyParents" :to="{name: 'all-parents'}">
+                  <i class='bx bx-group'></i>
+                  <span class="nav__name">Родители</span>
+                </router-link>
+              </li>
+              <li>
+                <router-link class="nav__link " id="makeManyTeachers" :to="{name: 'all-teachers'}">
+                  <i class='bx bx-group'></i>
+                  <span class="nav__name">Преподаватели</span>
+                </router-link>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <a href="#" @click.prevent="logout" class="nav__link">
+        <i class='bx bx-log-out nav__icon' ></i>
+        <span class="nav__name">Выйти</span>
+      </a>
+    </nav>
+  </div>
+</template>
+
+<script>
+import api from "../../api";
+export default {
+  name: "SideBarComponent",
+  data(){
+    return{
+      role: window.localStorage.getItem('role')
+    }
+  },
+  methods: {
+    logout(){
+      api.post('http://127.0.0.1:8000/api/logout').then(response=>{
+        localStorage.clear();
+        sessionStorage.clear();
+        this.$router.push({name: 'login'});
+      });
+    }
+  }
+}
+</script>
+
+<style scoped>
+#dropdown-list{
+  background-color: #4723D9;
+}
+#btn-drop{
+  background: transparent;
+  color: white;
+  outline:none;
+  border:none;
+}
+</style>

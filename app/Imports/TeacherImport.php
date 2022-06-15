@@ -37,7 +37,7 @@ class TeacherImport implements ToCollection
             ]);
 
             for($i = 6; $i < count($teacher); $i++){
-                $new_teacher->lessons()->attach(Lesson::where('code', $teacher[$i])->first());
+                $new_teacher->lessons()->attach(Lesson::where('name', $teacher[$i])->first());
                 $new_teacher->save();
             }
         }
