@@ -1,5 +1,5 @@
 <template>
-  <header class="header" id="header">
+  <header v-if="role" class="header" id="header">
     <div class="header__toggle">
       <i class='bx bx-menu' id="header-toggle"></i>
     </div>
@@ -8,7 +8,7 @@
       <img src="" alt="">
     </div>
   </header>
-  <div class="l-navbar" id="nav-bar">
+  <div v-if="role" class="l-navbar" id="nav-bar">
     <nav class="nav">
       <div>
         <router-link v-if="role==='student'" class="nav__logo" :to="{name: 'student'}">
@@ -19,31 +19,32 @@
           <i class='bx bx-layer nav__logo-icon'></i>
           <span class="nav__logo-name">АКВТ</span>
         </router-link>
+        <router-link v-if="role==='admin'" class="nav__logo" :to="{name: 'admin'}">
+          <i class='bx bx-layer nav__logo-icon'></i>
+          <span class="nav__logo-name">АКВТ</span>
+        </router-link>
         <div class="nav__list">
           <router-link v-if="role==='student'" class="nav__link active" id="news" :to="{name: 'student'}">
             <i class='bx bx-news'></i>
             <span class="nav__name">Главная</span>
           </router-link>
-
           <router-link v-if="role==='parent'" class="nav__link active" id="news-parent" :to="{name: 'parent'}">
             <i class='bx bx-news'></i>
             <span class="nav__name">Главная</span>
           </router-link>
-
           <router-link v-if="role==='parent'" class="nav__link active" id="news-teacher" :to="{name: 'teacher'}">
             <i class='bx bx-news'></i>
             <span class="nav__name">Главная</span>
           </router-link>
-
-          <router-link class="nav__link " id="attestation" :to="{name: 'attestation'}">
+          <router-link v-if="role==='parent' || role === 'student'" class="nav__link " id="attestation" :to="{name: 'attestation'}">
             <i class='bx bx-book-content'></i>
             <span class="nav__name">Аттестация</span>
           </router-link>
-          <router-link class="nav__link" id="schedule" :to="{name: 'schedule'}">
+          <router-link v-if="role==='parent' || role === 'student'" class="nav__link" id="schedule" :to="{name: 'schedule'}">
             <i class='bx bxs-calendar'></i>
             <span class="nav__name">Расписание</span>
           </router-link>
-          <router-link class="nav__link " id="debt" :to="{name: 'debt'}">
+          <router-link v-if="role==='parent' || role === 'student'" class="nav__link " id="debt" :to="{name: 'debt'}">
             <i class='bx bx-bookmark nav__icon' ></i>
             <span class="nav__name">Задолжности</span>
           </router-link>
@@ -51,10 +52,21 @@
 <!--            <i class='bx bx-message-square-dots'></i>-->
 <!--            <span class="nav__name">Месенджер</span>-->
 <!--          </router-link>-->
-
           <router-link v-if=" role==='admin' " class="nav__link " id="makeAdmin" :to="{name: 'adminMake'}">
             <i class='bx bx-user nav__icon'></i>
             <span class="nav__name">Создать по одному</span>
+          </router-link>
+          <router-link v-if=" role==='admin' " class="nav__link " id="makeGroup" :to="{name: 'admin.make.group'}">
+            <i class='bx bxs-group'></i>
+            <span class="nav__name">Создать группы</span>
+          </router-link>
+          <router-link v-if=" role==='admin' " class="nav__link " id="makeTimetable" :to="{name: 'admin.make.timetable'}">
+            <i class='bx bx-table' ></i>
+            <span class="nav__name">Создать расписание</span>
+          </router-link>
+          <router-link v-if=" role==='admin' " class="nav__link " id="makeLesson" :to="{name: 'admin.make.lesson'}">
+            <i class='bx bx-book-alt'></i>
+            <span class="nav__name">Создать предмет</span>
           </router-link>
           <div class="nav__link" v-if="role === 'admin'">
             <button id="btn-drop" type="button" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">

@@ -34,6 +34,9 @@ import TeacherComponent from "./components/admin/TeacherComponent";
 import ParentComponent from "./components/admin/ParentComponent";
 import MakeUserComponent from "./components/admin/MakeUserComponent";
 import MakeGroupComponent from "./components/admin/MakeGroupComponent";
+import MainAdminComponent from "./components/admin/MainAdminComponent";
+import MakeTimetableComponent from "./components/admin/MakeTimetableComponent";
+import MakeLessonComponent from "./components/admin/MakeLessonComponent";
 
 
 
@@ -79,6 +82,11 @@ const router = VueRouter.createRouter({
         // --------------------------------
         // ДЛЯ АДМИНА
         {
+            path: '/admin',
+            name: 'admin',
+            component: MainAdminComponent
+        },
+        {
             path: '/admin/students',
             name: 'all-students',
             component: StudentComponent
@@ -102,6 +110,16 @@ const router = VueRouter.createRouter({
             path: '/admin/make/group',
             name: 'admin.make.group',
             component: MakeGroupComponent
+        },
+        {
+          path: '/admin/make/timetable',
+          name: 'admin.make.timetable',
+          component: MakeTimetableComponent
+        },
+        {
+            path: '/admin/make/lesson',
+            name: 'admin.make.lesson',
+            component: MakeLessonComponent
         },
         // --------------------------------
         {

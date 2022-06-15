@@ -9,6 +9,7 @@ use App\Http\Resources\TeacherResource;
 use App\Models\Users\Parents;
 use App\Models\Users\Student;
 use App\Models\Users\Teacher;
+use App\Models\Users\User;
 
 class GetDataUserController extends Controller
 {
@@ -42,5 +43,10 @@ class GetDataUserController extends Controller
 
     public function getTeachersById($offset){
         return TeacherResource::collection(Teacher::orderBy('id')->offset($offset)->limit(20)->get());
+    }
+    public function delUser($id){
+        $user = User::find($id);
+        $user->delete();
+        return response()->json(['messaage'=>'Пользователь удалён']);
     }
 }

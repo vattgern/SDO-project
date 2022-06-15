@@ -8,7 +8,7 @@
 <script>
 import SideBarComponent from "./SideBarComponent";
 export default {
-    name: "MainComponent",
+  name: "MainComponent",
   components: {
       SideBarComponent
   },

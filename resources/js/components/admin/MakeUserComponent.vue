@@ -56,7 +56,7 @@
       <div id="cardStudentHelper" class="form-text">*-*-*-*</div>
     </div>
     <div class="">
-      <label for="groupName" class="form-label">Номер студенческого</label>
+      <label for="groupName" class="form-label">Название группы</label>
       <input type="text" class="form-control" id="groupName" v-model="form.groupStudent">
       <div id="groupNameHelper" class="form-text">АА-00</div>
     </div>
@@ -295,7 +295,7 @@ export default {
 
         this.formValidation.isPasswordRight = true;
       } else{
-        document.querySelector('#passwordHelper').textContent = 'Кол-во должно быть больше 8';
+        document.querySelector('#passwordHelper').textContent = 'Кол-во символов должно быть больше 8';
         document.querySelector('#passwordHelper').classList.add('text-danger');
 
         this.formValidation.isPasswordRight = false;
@@ -329,7 +329,7 @@ export default {
         'phone': this.form.phone,
         'password': this.form.password,
         'student_cart': this.form.studentCard,
-        'group_name': this.form.groupStudent,
+        'group': this.form.groupStudent,
       }).then(response =>{
         console.log(response);
       }).catch(response =>{

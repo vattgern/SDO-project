@@ -11,6 +11,7 @@ use App\Models\Lesson;
 use App\Models\Users\Parents;
 use App\Models\Users\Role;
 use App\Models\Users\Student;
+use App\Models\Users\Teacher;
 use App\Models\Users\User;
 use App\Services\UserService;
 use Illuminate\Http\Request;
@@ -20,11 +21,12 @@ class RegisterManyUsersController extends UserService
 {
     public function manyStudentsRegister(ManyStudentsRegistration $request){
         $students = $request->all()['students'];
+        $group = $students['group'];
         foreach ($students as $student){
 
             $user = $this->userRegister($student, 'student');
 
-            $group_id = Group::where('name',$student['group_name'])->first()->id;
+            $group_id = Group::where('name',$group)->first()->id;
 
             Student::create([
                 'user_id' => $user['id'],
@@ -63,7 +65,7 @@ class RegisterManyUsersController extends UserService
 
             $user = $this->userRegister($teacher, 'teacher');
 
-            Parents::create([
+            $teacher = Teacher::create([
                 'user_id' => $user['id'],
             ]);
         }

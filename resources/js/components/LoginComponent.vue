@@ -13,6 +13,9 @@
         <input type="password" v-model="password" class="form-control" id="password" placeholder="*********">
       </div>
       <button type="submit" class="w-100 btn btn-outline-primary">Войти</button>
+      <div>
+        <p class="text-danger" id="error"></p>
+      </div>
     </form>
   </section>
 </template>
@@ -25,15 +28,13 @@ export default {
     return {
       login: '',
       password: '',
+      error: ''
     }
   },
   methods:{
     send(){
       // console.log(this);
       axios.get('/sanctum/csrf-cookie').then(response => {
-
-        console.log(response);
-
         axios.post('http://127.0.0.1:8000/api/login',{
 
           'login': this.login,
@@ -42,12 +43,11 @@ export default {
         }).then(response => {
 
           console.log('авторизован');
-          console.log(response);
 
           window.localStorage.setItem('token',response.data.token);
           window.localStorage.setItem('role',response.data.role);
           window.sessionStorage.setItem('role',response.data.role);
-
+          document.querySelector('#error').textContent = '';
           let role = window.localStorage.getItem('role');
           if( role === 'student'){
             this.$router.push({name: 'student'});
@@ -55,13 +55,13 @@ export default {
             this.$router.push({ name: 'parent' });
           } else if(role === 'teacher'){
             this.$router.push({ name: 'teacher' });
+          } else if(role === 'admin'){
+            this.$router.push({name: 'admin'})
           }
-
         }).catch(response =>{
-
           console.log('Чтото нето');
-          //console.log(response);
-
+          console.log(response);
+          document.querySelector('#error').textContent = 'Неверный логин или пароль';
         });
       });
     }
