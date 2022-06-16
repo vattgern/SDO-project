@@ -23214,8 +23214,17 @@ __webpack_require__.r(__webpack_exports__);
         name: '',
         code: ''
       },
-      file: ''
+      file: '',
+      groups: []
     };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    axios.get('/api/groups').then(function (groups) {
+      _this.groups = groups.data.groups;
+      console.log(_this.groups);
+    });
   },
   methods: {
     handleFileUpload: function handleFileUpload() {
@@ -23227,20 +23236,26 @@ __webpack_require__.r(__webpack_exports__);
       // })
     },
     sendOne: function sendOne() {
-      var _this = this;
+      var _this2 = this;
 
       axios.post('http://127.0.0.1:8000/api/new/group', {
         name: this.formOne.name,
         code: this.formOne.code
       }).then(function (response) {
         console.log(response);
-        _this.formOne.name = '';
-        _this.formOne.code = '';
+        _this2.formOne.name = '';
+        _this2.formOne.code = '';
+        axios.get('/api/groups').then(function (groups) {
+          _this2.groups = groups.data.groups;
+          console.log(_this2.groups);
+        });
       })["catch"](function (response) {
         console.log(response);
       });
     },
     sendMany: function sendMany() {
+      var _this3 = this;
+
       var excel = new FormData();
       excel.append('file', this.file);
       axios.post('http://127.0.0.1:8000/api/excel/groups', excel, {
@@ -23249,6 +23264,10 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (response) {
         console.log(response);
+        axios.get('/api/groups').then(function (groups) {
+          _this3.groups = groups.data.groups;
+          console.log(_this3.groups);
+        });
       })["catch"](function (response) {
         console.log(response);
       });
@@ -23278,8 +23297,17 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      file: ''
+      file: '',
+      lessons: []
     };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    axios.get('/api/lessons').then(function (lessons) {
+      _this.lessons = lessons.data.lessons;
+      console.log(_this.lessons);
+    });
   },
   methods: {
     handleFileUpload: function handleFileUpload() {
@@ -23291,6 +23319,8 @@ __webpack_require__.r(__webpack_exports__);
       // })
     },
     send: function send() {
+      var _this2 = this;
+
       var excel = new FormData();
       excel.append('file', this.file);
       axios.post('/api/excel/lesson', excel, {
@@ -23299,6 +23329,10 @@ __webpack_require__.r(__webpack_exports__);
         }
       }).then(function (response) {
         console.log(response);
+        axios.get('/api/lessons').then(function (lessons) {
+          _this2.lessons = lessons.data.lessons;
+          console.log(_this2.lessons);
+        });
       })["catch"](function (response) {
         console.log(response);
       });
@@ -24275,7 +24309,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 var _hoisted_1 = {
-  "class": "h-100 d-flex justify-content-center align-items-center"
+  style: {
+    "height": "100%",
+    "width": "100%",
+    "overflow": "hidden"
+  },
+  "class": "d-flex justify-content-center align-items-center"
 };
 
 var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", null, "Авторизуйтесь")], -1
@@ -24493,6 +24532,20 @@ var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 /* HOISTED */
 );
 
+var _hoisted_14 = {
+  "class": "mt-3"
+};
+
+var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, "Список групп")], -1
+/* HOISTED */
+);
+
+var _hoisted_16 = {
+  "class": "list-group"
+};
+var _hoisted_17 = {
+  "class": "w-25 list-group-item d-flex flex-row align-items-center justify-content-between"
+};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_SideBarComponent = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("SideBarComponent");
 
@@ -24551,7 +24604,15 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* HYDRATE_EVENTS */
   )], 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $data.form === 'many']])])], 64
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $data.form === 'many']]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [_hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_16, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.groups, function (group, id) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Код группы: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(group.code), 1
+    /* TEXT */
+    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Название группы " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(group.name), 1
+    /* TEXT */
+    )]);
+  }), 256
+  /* UNKEYED_FRAGMENT */
+  ))])])])], 64
   /* STABLE_FRAGMENT */
   );
 }
@@ -24594,6 +24655,20 @@ var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 /* HOISTED */
 );
 
+var _hoisted_5 = {
+  "class": "mt-3"
+};
+
+var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, "Список предметов")], -1
+/* HOISTED */
+);
+
+var _hoisted_7 = {
+  "class": "list-group"
+};
+var _hoisted_8 = {
+  "class": "w-50 list-group-item d-flex flex-row align-items-center justify-content-between"
+};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_SideBarComponent = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("SideBarComponent");
 
@@ -24614,7 +24689,15 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* HYDRATE_EVENTS, NEED_PATCH */
   )]), _hoisted_4], 32
   /* HYDRATE_EVENTS */
-  )])])], 64
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_7, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.lessons, function (lesson, id) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Код премета: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(lesson.code), 1
+    /* TEXT */
+    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Название премета " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(lesson.name), 1
+    /* TEXT */
+    )]);
+  }), 256
+  /* UNKEYED_FRAGMENT */
+  ))])])])])], 64
   /* STABLE_FRAGMENT */
   );
 }

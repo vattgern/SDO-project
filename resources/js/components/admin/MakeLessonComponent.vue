@@ -13,6 +13,20 @@
               <button class="btn btn-primary" type="submit">Отправить</button>
           </form>
       </div>
+      <div class="mt-3">
+          <div>
+              <h2>Список предметов</h2>
+          </div>
+          <div>
+              <ul class="list-group">
+                  <li class="w-50 list-group-item d-flex flex-row align-items-center justify-content-between"
+                      v-for="(lesson, id) in lessons" >
+                      <p>Код премета: {{ lesson.code }}</p>
+                      <p>Название премета {{ lesson.name }}</p>
+                  </li>
+              </ul>
+          </div>
+      </div>
   </div>
 </template>
 
@@ -24,10 +38,17 @@ export default {
 
     data(){
     return{
-      file: ''
+      file: '',
+        lessons: []
     }
   },
-  methods:{
+    mounted() {
+      axios.get('/api/lessons').then(lessons => {
+          this.lessons = lessons.data.lessons
+          console.log(this.lessons);
+      });
+    },
+    methods:{
     handleFileUpload(){
       this.file = this.$refs.lesson.files[0];
       console.log(this.file);
@@ -46,6 +67,10 @@ export default {
         }
       }).then(response =>{
         console.log(response);
+          axios.get('/api/lessons').then(lessons => {
+              this.lessons = lessons.data.lessons
+              console.log(this.lessons);
+          });
       }).catch(response =>{
         console.log(response);
       });

@@ -1,5 +1,5 @@
 <template>
-  <section class="h-100 d-flex justify-content-center align-items-center">
+  <section style="height: 100%; width: 100%; overflow: hidden;" class="d-flex justify-content-center align-items-center">
     <form @submit.prevent="send" >
       <div>
         <h1>Авторизуйтесь</h1>

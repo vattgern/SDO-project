@@ -32,6 +32,18 @@
                 <button class="btn btn-primary" type="submit">Создать</button>
             </form>
         </div>
+        <div class="mt-3">
+            <div>
+                <h2>Список групп</h2>
+            </div>
+            <ul class="list-group">
+                <li class="w-25 list-group-item d-flex flex-row align-items-center justify-content-between"
+                    v-for="(group, id) in groups" >
+                    <p>Код группы: {{ group.code }}</p>
+                    <p>Название группы {{ group.name }}</p>
+                </li>
+            </ul>
+        </div>
     </div>
 </template>
 
@@ -48,10 +60,17 @@ export default {
         name: '',
         code: ''
       },
-      file: ''
+      file: '',
+        groups: []
     }
   },
-  methods:{
+    mounted() {
+      axios.get('/api/groups').then(groups => {
+          this.groups = groups.data.groups;
+          console.log(this.groups);
+      })
+    },
+    methods:{
     handleFileUpload(){
       this.file = this.$refs.group.files[0];
       console.log(this.file);
@@ -69,6 +88,10 @@ export default {
         console.log(response);
         this.formOne.name = ''
         this.formOne.code = ''
+          axios.get('/api/groups').then(groups => {
+              this.groups = groups.data.groups;
+              console.log(this.groups);
+          })
       }).catch(response =>{
         console.log(response);
       });
@@ -82,6 +105,10 @@ export default {
         }
       }).then(response =>{
         console.log(response);
+          axios.get('/api/groups').then(groups => {
+              this.groups = groups.data.groups;
+              console.log(this.groups);
+          })
       }).catch(response =>{
         console.log(response);
       });
