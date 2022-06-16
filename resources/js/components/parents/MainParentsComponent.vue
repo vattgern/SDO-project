@@ -120,7 +120,19 @@
 </template>
 <script>
 export default {
-  name: "MainParentsComponent"
+  name: "MainParentsComponent",
+    data(){
+      return{
+          children: []
+      }
+    },
+    mounted() {
+        if(localStorage.getItem('token')){
+            axios.get('/api/me').then(response => {
+               this.children = response.data.students;
+            })
+        }
+  }
 }
 </script>
 

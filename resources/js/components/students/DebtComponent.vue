@@ -1,4 +1,5 @@
 <template>
+    <SideBarComponent></SideBarComponent>
   <div class="card-group w-100">
     <div class="mt-3">
       <h1>Задолжности</h1>
@@ -73,9 +74,12 @@
 </template>
 
 <script>
+import SideBarComponent from "../layout/SideBarComponent";
 export default {
   name: "DebtComponent",
-  data(){
+    components: {SideBarComponent},
+
+    data(){
     return{
 
     }

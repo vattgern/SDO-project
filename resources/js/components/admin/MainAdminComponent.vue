@@ -1,4 +1,5 @@
 <template>
+    <SideBarComponent></SideBarComponent>
 <div>
   <div>
     <h1>Добавдение аудиторий</h1>
@@ -16,21 +17,27 @@
 </template>
 
 <script>
+import SideBarComponent from "../layout/SideBarComponent";
 export default {
-  name: "MainAdminComponent",
-  data(){
-    return{
-      numberClass: ''
-    }
-  },
-  methods:{
-    sendClass(){
-      axios.post('/api/new/class',{
-        'number': this.numberClass
-      }).then(res => {
-        this.numberClass = '';
-      });
-    }
+      name: "MainAdminComponent",
+    components: {SideBarComponent},
+
+    data(){
+        return{
+          numberClass: ''
+        }
+        },
+    mounted() {
+
+    },
+    methods:{
+        sendClass(){
+          axios.post('/api/new/class',{
+            'number': this.numberClass
+          }).then(res => {
+            this.numberClass = '';
+          });
+        }
   }
 }
 </script>

@@ -1,4 +1,5 @@
 <template>
+    <SideBarComponent></SideBarComponent>
     <section id="news" class="h-100">
         <!--       Оценки         -->
         <div class="d-flex flex-column ">
@@ -177,8 +178,12 @@
 </template>
 
 <script>
+import SideBarComponent from "../layout/SideBarComponent";
 export default {
-    name: "MainStudentComponent"
+    name: "MainStudentComponent",
+    components: {
+        SideBarComponent
+    }
 }
 </script>
 

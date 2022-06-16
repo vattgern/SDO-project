@@ -1,28 +1,28 @@
 <template>
-  <header v-if="role" class="header" id="header">
+  <header v-if="show" class="header" id="header">
     <div class="header__toggle">
       <i class='bx bx-menu' id="header-toggle"></i>
     </div>
 
-    <div>
-      <p>
+    <div class="d-flex justify-content-center align-items-center">
+      <p style="margin-top: 15px;">
         {{ user.key }} {{ user.name }}
       </p>
     </div>
   </header>
-  <div v-if="role" class="l-navbar" id="nav-bar">
+  <div v-if="show" class="l-navbar" id="nav-bar">
     <nav class="nav">
       <div>
         <router-link v-if="role==='student'" class="nav__logo" :to="{name: 'student'}">
-          <i class='bx bx-layer nav__logo-icon'></i>
+          <i class='bx bxl-vuejs'></i>
           <span class="nav__logo-name">АКВТ</span>
         </router-link>
         <router-link v-if="role==='parent'" class="nav__logo" :to="{name: 'parent'}">
-          <i class='bx bx-layer nav__logo-icon'></i>
+          <i class='bx bxl-vuejs'></i>
           <span class="nav__logo-name">АКВТ</span>
         </router-link>
         <router-link v-if="role==='admin'" class="nav__logo" :to="{name: 'admin'}">
-          <i class='bx bx-layer nav__logo-icon'></i>
+          <i class='bx bxl-vuejs'></i>
           <span class="nav__logo-name">АКВТ</span>
         </router-link>
         <div class="nav__list">
@@ -34,7 +34,7 @@
             <i class='bx bx-news'></i>
             <span class="nav__name">Главная</span>
           </router-link>
-          <router-link v-if="role==='parent'" class="nav__link active" id="news-teacher" :to="{name: 'teacher'}">
+          <router-link v-if="role==='teacher'" class="nav__link active" id="news-teacher" :to="{name: 'teacher'}">
             <i class='bx bx-news'></i>
             <span class="nav__name">Главная</span>
           </router-link>
@@ -116,7 +116,8 @@ export default {
       user: {
         name: '',
         key: ''
-      }
+      },
+        show: false
     }
   },
   methods: {
@@ -126,7 +127,13 @@ export default {
         sessionStorage.clear();
         this.$router.push({name: 'login'});
       });
-    }
+    },
+      forceRender(){
+        this.show = false;
+        this.$nextTick(() => {
+            this.show = false;
+        });
+      }
   },
   mounted() {
     if(localStorage.getItem('token')){
@@ -135,6 +142,8 @@ export default {
         this.user.key = response.data.key;
         this.user.name = response.data.middle_name + ' ' + response.data.name + ' '+ response.data.last_name;
       })
+        this.show = true;
+      console.log(this.show);
     }
   }
 }

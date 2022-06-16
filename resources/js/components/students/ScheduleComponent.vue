@@ -1,4 +1,5 @@
 <template>
+    <SideBarComponent></SideBarComponent>
   <section class="h-100">
     <div class="d-flex justify-content-between flex-row">
       <h1>Расписание</h1>
@@ -263,6 +264,7 @@
 </template>
 
 <script>
+import SideBarComponent from "../layout/SideBarComponent";
 export default {
   name: "scheduleComponent",
   data(){
@@ -275,9 +277,14 @@ export default {
       }
     }
   },
+    components: {
+        SideBarComponent
+    },
   mounted() {
     axios.get('/api/timetable/student').then(response => {
       console.log(response);
+    }).catch(res => {
+        console.log(res);
     })
   },
   methods:{

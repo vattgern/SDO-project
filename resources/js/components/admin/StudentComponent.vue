@@ -1,4 +1,5 @@
 <template>
+    <SideBarComponent></SideBarComponent>
     <section id="students" class="w-100" style="height: 100vh; overflow-y: scroll;">
         <div class="w-100 d-flex flex-row justify-content-between">
             <button type="button" class="btn btn-outline-primary" @click="isOpenForm = true;" >Добавить студента</button>
@@ -84,8 +85,11 @@
     </section>
 </template>
 <script>
+import SideBarComponent from "../layout/SideBarComponent";
 export default {
     name: "StudentComponent",
+    components: {SideBarComponent},
+
     data(){
         return {
             isOpenForm: false,

@@ -1,22 +1,28 @@
 <template>
+    <SideBarComponent></SideBarComponent>
   <div>
-    <h1>Создание предметов</h1>
-  </div>
-  <div>
-    <form @submit.prevent="send">
-      <div class="mb-3">
-        <label for="file" class="form-label">Выберите Excel файл</label>
-        <input type="file" ref="lesson" v-on:change="handleFileUpload" class="form-control" id="file" aria-describedby="inputGroupFileAddon02">
+      <div>
+          <h1>Создание предметов</h1>
       </div>
-      <button class="btn btn-primary" type="submit">Отправить</button>
-    </form>
+      <div>
+          <form @submit.prevent="send">
+              <div class="mb-3">
+                  <label for="file" class="form-label">Выберите Excel файл</label>
+                  <input type="file" ref="lesson" v-on:change="handleFileUpload" class="form-control" id="file" aria-describedby="inputGroupFileAddon02">
+              </div>
+              <button class="btn btn-primary" type="submit">Отправить</button>
+          </form>
+      </div>
   </div>
 </template>
 
 <script>
+import SideBarComponent from "../layout/SideBarComponent";
 export default {
   name: "MakeLessonComponent",
-  data(){
+    components: {SideBarComponent},
+
+    data(){
     return{
       file: ''
     }

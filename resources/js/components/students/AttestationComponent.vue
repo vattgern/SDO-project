@@ -1,4 +1,5 @@
 <template>
+    <SideBarComponent></SideBarComponent>
   <div class="container">
     <div class="d-flex justify-content-between flex-row">
       <h1>Аттестация</h1>
@@ -105,9 +106,12 @@
 </template>
 
 <script>
+import SideBarComponent from "../layout/SideBarComponent";
 export default {
   name: "AttestationComponent",
-  data(){
+    components: {SideBarComponent},
+
+    data(){
     return{
       srcImages: {
         "logo": 'путь/img.png'

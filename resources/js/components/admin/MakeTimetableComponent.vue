@@ -1,28 +1,34 @@
 <template>
-  <div>
-    <h1>Создание расписания</h1>
-  </div>
-  <div class="alert alert-warning d-flex align-items-center" role="alert">
-    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-    <div>
-      Прежде чем регистрировать расписание убедитесь в созданных группах, предметах, учителях, аудиториях.
-    </div>
-  </div>
-  <div>
-    <form @submit.prevent="send">
-      <div class="mb-3">
-        <label for="file" class="form-label">Выберите Excel файл</label>
-        <input type="file" ref="timetable" v-on:change="handleFileUpload" class="form-control" id="file" aria-describedby="inputGroupFileAddon02">
+    <SideBarComponent></SideBarComponent>
+  <div class="w-100">
+      <div>
+          <h1>Создание расписания</h1>
       </div>
-      <button class="btn btn-primary" type="submit">Создать</button>
-    </form>
+      <div class="alert alert-warning d-flex align-items-center" role="alert">
+          <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+          <div>
+              Прежде чем регистрировать расписание убедитесь в созданных группах, предметах, учителях, аудиториях.
+          </div>
+      </div>
+      <div>
+          <form @submit.prevent="send">
+              <div class="mb-3">
+                  <label for="file" class="form-label">Выберите Excel файл</label>
+                  <input type="file" ref="timetable" v-on:change="handleFileUpload" class="form-control" id="file" aria-describedby="inputGroupFileAddon02">
+              </div>
+              <button class="btn btn-primary" type="submit">Создать</button>
+          </form>
+      </div>
   </div>
 </template>
 
 <script>
+import SideBarComponent from "../layout/SideBarComponent";
 export default {
   name: "MakeTimetableComponent",
-  data(){
+    components: {SideBarComponent},
+
+    data(){
     return{
       file: ''
     }

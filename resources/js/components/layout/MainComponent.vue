@@ -1,6 +1,6 @@
 <template>
-  <SideBarComponent></SideBarComponent>
-  <div style="width: 100%; height: 90vh;">
+<!--  <SideBarComponent></SideBarComponent>-->
+  <div style="width: 100%; height: 100vh;">
     <router-view></router-view>
   </div>
 </template>
