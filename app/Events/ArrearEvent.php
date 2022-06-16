@@ -20,11 +20,21 @@ class ArrearEvent
      *
      * @return void
      */
-    public function __construct(Arrear $arrear)
+    private $arrear;
+    private $request;
+
+    public function __construct(Arrear $arrear, $request)
     {
-        //
+        $this->arrear = $arrear;
     }
 
+    public function getArrear(){
+        return $this->arrear;
+    }
+
+    public function getRequest(){
+        return $this->request;
+    }
     /**
      * Get the channels the event should broadcast on.
      *

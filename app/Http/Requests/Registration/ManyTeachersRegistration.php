@@ -29,10 +29,11 @@ class ManyTeachersRegistration extends ApiRequest
             'teachers.*.name' => 'min:2|max:40|required',
             'teachers.*.middle_name' => 'min:2|max:40|required',
             'teachers.*.last_name' => 'min:2|max:40|required',
-            'teachers.*.phone' => 'min:11|max:11|required',
+            'teachers.*.phone' => 'min:11|max:11|required|unique:users',
             'teachers.*.password' =>'min:8|required',
+            'teachers.*.login' => 'min:4|unique:users|required',
             'teachers.*.lessons' =>'array|required',
-            'teachers.*.lessons.*.name' =>'min:2|required',
+            'teachers.*.lessons.*.name' =>'min:2|required'
         ];
     }
 }

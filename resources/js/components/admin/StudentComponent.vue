@@ -101,7 +101,7 @@ export default {
     methods:{
         handleFileUpload(){
           this.file = this.$refs.file.files[0];
-          this.$refs.file.reset();
+          //this.$refs.file.reset();
         },
         sendStudents(){
           console.log(this);
@@ -114,6 +114,12 @@ export default {
           }).then(response =>{
             console.log('Ура');
             console.log(response);
+              axios.get('/api/students/{offset}').then(students => {
+
+                  this.students = students.data;
+                  console.log(this.students);
+              });
+
           }).catch(response =>{
             console.log(response);
           })

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RateRequest extends ApiRequest
+class AttestationRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class RateRequest extends ApiRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -24,9 +24,9 @@ class RateRequest extends ApiRequest
     public function rules()
     {
         return [
-            'rate' => 'regex:/н{1}|[2-5]{1}/|max:1',
-            'lesson' => 'min:2|required',
-            'id_student' => 'required'
+            'semester' => 'required|regex:/[0-1]{1}/|max:1',
+            'rate' => 'required|regex:/н{1}|[2-5]{1}/|max:1',
+            'lesson' => 'required|min:2'
         ];
     }
 }

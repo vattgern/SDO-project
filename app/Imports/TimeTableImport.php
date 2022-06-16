@@ -22,20 +22,17 @@ class TimeTableImport implements ToCollection
     public function collection(Collection $collection)
     {
         foreach ($collection as $row){
-            echo Group::where('name', $row[0])->first()->id;
+            if($row[0] === null){
+                break;
+            }
+
             $group = Group::where('name', $row[0])->first()->id;
             $lesson = Lesson::where('name', $row[2])->first()->id;
-            echo Lesson::where('name', $row[2])->first()->id;
             $calls = Calls::where('begin', $row[3])->first()->id;
-            echo Calls::where('begin', $row[3])->first()->id;
             $even = Parity::where('even', $row[4])->first()->id;
-            echo Parity::where('even', $row[4])->first()->id;
             $day = Days::where('day', $row[1])->first()->id;
-            echo Days::where('day', $row[1])->first()->id;
             $class = Classes::where('number', $row[5])->first()->id;
-            echo Classes::where('number', $row[5])->first()->id;
             $teacher = User::where('middle_name', $row[6])->first()->teacher;
-            echo User::where('middle_name', $row[6])->first()->teacher;
 
             TimeTable::create([
                 'id_day' => $day,

@@ -14,6 +14,9 @@ class LessonImport implements ToCollection
     public function collection(Collection $collection)
     {
         foreach ($collection as $lesson){
+            if($lesson[0] === null){
+                break;
+            }
             Lesson::create([
                 'code' => $lesson[0],
                 'name' => $lesson[1]

@@ -17,6 +17,10 @@
           <i class='bx bxl-vuejs'></i>
           <span class="nav__logo-name">АКВТ</span>
         </router-link>
+          <router-link v-if="role==='teacher'" class="nav__logo" :to="{name: 'teacher'}">
+              <i class='bx bxl-vuejs'></i>
+              <span class="nav__logo-name">АКВТ</span>
+          </router-link>
         <router-link v-if="role==='parent'" class="nav__logo" :to="{name: 'parent'}">
           <i class='bx bxl-vuejs'></i>
           <span class="nav__logo-name">АКВТ</span>

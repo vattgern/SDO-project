@@ -14,6 +14,9 @@ class GroupsImport implements ToCollection
     public function collection(Collection $collection)
     {
         foreach ($collection as $group){
+            if($group[0] === null){
+                break;
+            }
             Group::create([
                 'code' => $group[0],
                 'name' => $group[1]

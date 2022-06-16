@@ -1,4 +1,5 @@
 <template>
+    <SideBarComponent></SideBarComponent>
     <div class="w-100 d-flex flex-column mt-5">
         <h3 class="card-title mb-3" >Новости</h3>
         <div class="list-group overflow-auto w-100" style="height: 70vh;">
@@ -96,8 +97,11 @@
     </div>
 </template>
 <script>
+import SideBarComponent from "../layout/SideBarComponent";
 export default {
-  name: "MainTeachersComponent"
+  name: "MainTeachersComponent",
+    components: {SideBarComponent}
+
 }
 </script>
 

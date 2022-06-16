@@ -19,7 +19,9 @@ class TeacherImport implements ToCollection
     public function collection(Collection $collection)
     {
         foreach ($collection as $teacher) {
-
+            if($teacher === null){
+                break;
+            }
             $user = User::create([
                 'name' => $teacher[0],
                 'middle_name' => $teacher[1],

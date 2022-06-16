@@ -18,6 +18,9 @@ class ParentImport implements ToCollection
     public function collection(Collection $collection)
     {
         foreach ($collection as $parent){
+            if($parent[0] === null){
+                break;
+            }
 
             $user = User::create([
                 'name' => $parent[0],

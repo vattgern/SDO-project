@@ -28,8 +28,9 @@ class ManyParentsRegistration extends FormRequest
             'parents.*.name' => 'min:2|max:40|required',
             'parents.*.middle_name' => 'min:2|max:40|required',
             'parents.*.last_name' => 'min:2|max:40|required',
-            'parents.*.phone' => 'min:11|max:11|required',
+            'parents.*.phone' => 'min:11|max:11|required|unique:users',
             'parents.*.password' =>'min:8|required',
+            'parents.*.login' => 'min:4|unique:users|required' ,
             'parents.*.students' => 'array',
             'parents.*.students.*.student_cart' => 'required|min:4|max:4'
         ];

@@ -28,8 +28,9 @@ class ManyStudentsRegistration extends FormRequest
             'students.*.name' => 'min:2|max:40|required',
             'students.*.middle_name' => 'min:2|max:40|required',
             'students.*.last_name' => 'min:2|max:40|required',
-            'students.*.phone' => 'min:11|max:11|required',
+            'students.*.phone' => 'min:11|max:11|required|unique:users',
             'students.*.password' =>'min:8|required',
+            'students.*.login' => 'min:4|unique:users|required' ,
             'students.*.student_cart' => 'min:4|max:4|required',
             'group' => 'required'
         ];

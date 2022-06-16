@@ -18,6 +18,9 @@ class StudentImport implements ToCollection
     public function collection(Collection $collection)
     {
         foreach ($collection as $student){
+            if($student[0] === null){
+                break;
+            }
 
             $group_id = Group::where('name',$student[6])->first()->id;
 
